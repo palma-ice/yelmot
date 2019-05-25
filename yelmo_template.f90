@@ -49,7 +49,7 @@ program yelmo_test
     yelmo1%bnd%Q_geo    = 50.0          ! [mW/m2]
     
     yelmo1%bnd%bmb_shlf = -20.0         ! [m.i.e./a]
-    yelmo1%bnd%T_shlf   = T0            ! [K]   
+    yelmo1%bnd%T_shlf   = 273.15        ! [K]   
 
     ! Impose present-day surface mass balance and present-day temperature field
     yelmo1%bnd%smb      = yelmo1%dta%pd%smb        ! [m.i.e./a]
@@ -139,6 +139,9 @@ contains
         call nc_write(filename,"mask_bed",ylmo%tpo%now%mask_bed,units="",long_name="Bed mask", &
                       dim1="xc",dim2="yc",dim3="time",start=[1,1,n],ncid=ncid)
         
+        call nc_write(filename,"smb",ylmo%bnd%smb,units="m/a",long_name="Surface mass balance", &
+                       dim1="xc",dim2="yc",dim3="time",start=[1,1,n],ncid=ncid)
+
         ! Close the netcdf file
         call nc_close(ncid)
 
